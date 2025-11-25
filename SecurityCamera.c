@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 //security camera
-int main(){
-    
-    // temp to check sudden temperature changes 
+
+// temp to check sudden temperature changes 
     // nv to turn on night vision of camera 
     // br to see the lumins of the surrondings
     // status camera On/Off
@@ -22,8 +21,12 @@ int main(){
     int uptime;
     
     };
+// Global Variable for struct camera
+   struct camera c;
+   
+   int main(){
     
-    struct camera c;
+    
    
    // innitilizing power, status and uptime to remove garbage value
    c.uptime=0;
@@ -94,18 +97,18 @@ int main(){
     printf("-------------STATUS OF CAMERA-------------\n\n");
     for(int i=0;i<=3;i++){
         if(c.tc[i]==1 && c.nv[i]==1){
-            printf("Camera Turned on in %d to %d Hours due to change in temperature and low light\n",i,(i+i));
+            printf("Camera Turned on in %d to %d Hours due to change in temperature and low light\n",i,(i+1));
         }
         else if (c.tc[i]==1){
-             printf("Camera Turned on in %d to %d Hours due to change in temperature \n",i,(i+i));
+             printf("Camera Turned on in %d to %d Hours due to change in temperature \n",i,(i+1));
         }
         else if(c.nv[i]==1){
-            printf("Camera Turned on in %d to %d Hours due to change in low light\n",i,(i+i));
+            printf("Camera Turned on in %d to %d Hours due to change in low light\n",i,(i+1));
         }
     }
     printf("\n");
     printf("TOTAL POWER CONSUMPTION : %.2f Units\n",c.power);
-      printf("TOTAL POWER UPTIME OF CAMERA : %d Hours\n",c.uptime);
+    printf("TOTAL POWER UPTIME OF CAMERA : %d Hours\n",c.uptime);
     return 0;
 
 }
