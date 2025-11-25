@@ -15,7 +15,7 @@ int main(){
     
     int temp[4]; 
     int nv[4];
-    int status; 
+    int status[4]; 
     int tc[4];
     int br[4];
     float power;
@@ -26,8 +26,6 @@ int main(){
     struct camera c;
    
    // innitilizing power, status and uptime to remove garbage value
-   
-   c.status=0;
    c.uptime=0;
    c.power=0;
  
@@ -62,8 +60,9 @@ int main(){
     
     // checking tc and nv in order to turn on camera 
     for (int i=0;i<=3;i++){
+        c.status[i]=0;
         if(c.tc[i]==1 || c.nv[i]==1){
-            c.status=1;
+            c.status[i]=1;
         }
     }
 
@@ -106,7 +105,7 @@ int main(){
     }
     printf("\n");
     printf("TOTAL POWER CONSUMPTION : %.2f Units\n",c.power);
-      printf("TOTAL POWER UPTIME OF CAMERA : %d3 Hours\n",c.uptime);
+      printf("TOTAL POWER UPTIME OF CAMERA : %d Hours\n",c.uptime);
     return 0;
 
 }
