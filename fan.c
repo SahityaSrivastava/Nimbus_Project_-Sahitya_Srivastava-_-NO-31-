@@ -26,7 +26,7 @@ struct fan{
 
 struct fan a;
 
-void runFan(){
+void runfan(){
     a.power=0;
     a.uptime=0;
 

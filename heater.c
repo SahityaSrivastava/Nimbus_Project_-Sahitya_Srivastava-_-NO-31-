@@ -1,3 +1,4 @@
+#include "heater.h"
 #include <stdio.h>
 /*
 HEATER
@@ -25,7 +26,7 @@ struct heater{
 
 struct heater h;
 
-int main(){
+void runheater(){
     h.power=0;
     h.uptime=0;
 
@@ -76,6 +77,7 @@ int main(){
 
     //output
     printf("-------- HEATER STATUS --------\n");
+    printf("Heater is running...\n");
 
     for(int i=0;i<4;i++){
         if(h.status[i]==1){
@@ -90,5 +92,5 @@ int main(){
 
 
     
-    return 0;
+    
 }

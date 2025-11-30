@@ -24,7 +24,7 @@
 // Global Variable for struct camera
    struct camera c;
    
-   int main(){
+   void runsecuritycamera(SecurityCameraData *cam, Controller *ctrl){
     
     
    
@@ -121,7 +121,7 @@
             printf("Door lock is open\n ");
         }
 
-    return 0;
+    
 
 }
    }
