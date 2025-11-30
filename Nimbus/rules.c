@@ -8,9 +8,7 @@ void apply_rules(Controller *c, int now_min) {
 
         switch(d->type) {
 
-            // -------------------------------------------------
-            // FAN LOGIC (your old logic)
-            // -------------------------------------------------
+
             case DEV_FAN: {
                 FanData *f = d->data;
 
@@ -27,9 +25,7 @@ void apply_rules(Controller *c, int now_min) {
                 break;
             }
 
-            // -------------------------------------------------
-            // HEATER LOGIC (your old logic)
-            // -------------------------------------------------
+
             case DEV_HEATER: {
                 HeaterData *h = d->data;
 
@@ -45,9 +41,7 @@ void apply_rules(Controller *c, int now_min) {
                 break;
             }
 
-            // -------------------------------------------------
-            // CAMERA LOGIC (your old logic)
-            // -------------------------------------------------
+
             case DEV_CAMERA: {
                 CameraData *cam = d->data;
 
@@ -59,9 +53,7 @@ void apply_rules(Controller *c, int now_min) {
                 break;
             }
 
-            // -------------------------------------------------
-            // DOOR LOCK LOGIC (depends on camera)
-            // -------------------------------------------------
+
             case DEV_DOORLOCK: {
                 DoorLockData *lk = d->data;
 
@@ -78,7 +70,7 @@ void apply_rules(Controller *c, int now_min) {
             }
 
             case DEV_SMARTPLUG:
-                // smart plug follows schedule
+
                 break;
         }
     }

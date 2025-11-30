@@ -12,9 +12,7 @@ typedef enum {
     DEV_GEYSER
 } DeviceType;
 
-// -----------------------------------------------------
-// DEVICE-SPECIFIC DATA (ALL FEATURES INCLUDED)
-// -----------------------------------------------------
+
 
 // FAN
 typedef struct {

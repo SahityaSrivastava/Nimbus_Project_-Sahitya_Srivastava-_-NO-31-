@@ -16,7 +16,7 @@ void controller_add(Controller *c, Device *d) {
 
 void controller_update(Controller *c, int minute) {
 
-    // Schedules
+
     for (int i = 0; i < c->count; i++) {
         Device *d = c->devices[i];
 
@@ -25,10 +25,10 @@ void controller_update(Controller *c, int minute) {
         }
     }
 
-    // Apply rule engine
+
     apply_rules(c, minute);
 
-    // Energy and uptime
+
     for (int i = 0; i < c->count; i++) {
 
         Device *d = c->devices[i];
@@ -76,9 +76,7 @@ void controller_update(Controller *c, int minute) {
     }
 }
 
-// ===========================================================
-// ENERGY REPORT (REQUIRED BY QUESTION)
-// ===========================================================
+
 void controller_report(Controller *c) {
 
     float total_energy = 0;
@@ -108,9 +106,7 @@ void controller_report(Controller *c) {
     printf("===========================================\n\n");
 }
 
-// ===========================================================
-// WHAT-IF SCENARIO (REQUIRED BY QUESTION)
-// ===========================================================
+
 void simulate_what_if(Controller *c, float temp_change) {
 
     printf("\n=========== WHAT-IF: TEMP CHANGE %.1f°C ===========\n",
@@ -119,17 +115,17 @@ void simulate_what_if(Controller *c, float temp_change) {
     float old_temp = c->ambient_temp;
     c->ambient_temp += temp_change;
 
-    // Apply rule engine once
+
     controller_update(c, 0);
 
-    // Print status per device
+
     for (int i = 0; i < c->count; i++) {
         Device *d = c->devices[i];
 
         printf("%-20s : %s\n", d->name, d->status ? "ON" : "OFF");
     }
 
-    // Restore normal temp
+
     c->ambient_temp = old_temp;
 
     printf("====================================================\n\n");

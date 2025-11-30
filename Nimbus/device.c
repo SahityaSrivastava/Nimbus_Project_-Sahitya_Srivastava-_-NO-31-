@@ -13,7 +13,7 @@ Device* create_device(int id, const char *name, DeviceType type, float power) {
     d->schedule = NULL;
     d->status = 0;
 
-    // allocate and zero-initialize
+
     switch (type) {
         case DEV_FAN:        d->data = calloc(1, sizeof(FanData)); break;
         case DEV_HEATER:     d->data = calloc(1, sizeof(HeaterData)); break;

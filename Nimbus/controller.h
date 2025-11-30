@@ -17,7 +17,7 @@ void controller_init(Controller *c);
 void controller_add(Controller *c, Device *d);
 void controller_update(Controller *c, int minute);
 
-// NEW FUNCTIONS
+
 void controller_report(Controller *c);
 void simulate_what_if(Controller *c, float temp_change);
 
