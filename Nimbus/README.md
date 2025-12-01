@@ -21,3 +21,4 @@ CO mapping: 
 * CO4 : use pointers for schedule linking and dynamic device lists; 
 * CO5 : design a modular system combining all syllabus topics. 
 
+![alt text](image.png)
