@@ -2,24 +2,26 @@
 #define DEVICE_H
 
 #include "types.h"
-#include "schedule.h"
+
+typedef struct Schedule Schedule;
 
 typedef struct {
     int id;
     char name[50];
     DeviceType type;
-
-    void *data;
-
-    float power_rating;
-    float energy_used;
-
-    Schedule *schedule;
-    int status;
-
+    State state;
+    float power_rating;    // kW
+    float energy_used;     // kWh
+    int mode;              
+    Schedule* schedule_head;
 } Device;
 
-Device* create_device(int id, const char *name, DeviceType type, float power);
-void free_device(Device *d);
+extern Device* devices;
+extern int device_count;
+
+void addDevice(const char* name, DeviceType type, float rating);
+void listDevices();
+void resetDeviceEnergy();
+void updateEnergyHour(int hour);
 
 #endif

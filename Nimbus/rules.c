@@ -1,76 +1,71 @@
 #include "rules.h"
-#include <stdio.h>
-
-void apply_rules(Controller *c, int now_min) {
-
-    for (int i = 0; i < c->count; i++) {
-        Device *d = c->devices[i];
-
-        switch(d->type) {
+#include "device.h"
 
 
-            case DEV_FAN: {
-                FanData *f = d->data;
 
-                if (!f->manual_override) {
+extern int currentHumidity; 
 
-                    if (f->temp > 35) f->speed = 3;
-                    else if (f->temp > 30) f->speed = 2;
-                    else if (f->humidity > 70) f->speed = 1;
-                    else if (f->occupancy == 1) f->speed = 1;
-                    else f->speed = 0;
-                }
 
-                d->status = (f->speed > 0);
+
+void applyRules(int temp, int light, int occ) {
+    for (int i = 0; i < device_count; ++i) {
+        Device* d = &devices[i];
+
+        switch (d->type) {
+
+            case TYPE_FAN: {
+                
+                d->mode = 0;
+                if (temp > 35) d->mode = 3;
+                else if (temp > 30) d->mode = 2;
+                else if (currentHumidity > 70) d->mode = 1;
+                else if (occ) d->mode = 1;
+                
+                d->state = (d->mode > 0) ? ON : OFF;
                 break;
             }
 
-
-            case DEV_HEATER: {
-                HeaterData *h = d->data;
-
-                if (!h->manual_override) {
-
-                    if (h->temp < 10) h->mode = 2;
-                    else if (h->temp < 18) h->mode = 1;
-                    else if (h->occupancy == 1) h->mode = 1;
-                    else h->mode = 0;
-                }
-
-                d->status = (h->mode > 0);
+            case TYPE_HEATER: {
+                d->mode = 0;
+                if (temp < 10) d->mode = 2;
+                else if (temp < 18) d->mode = 1;
+                else if (occ) d->mode = 1;
+                d->state = (d->mode > 0) ? ON : OFF;
                 break;
             }
 
-
-            case DEV_CAMERA: {
-                CameraData *cam = d->data;
-
-                cam->night_vision = (cam->brightness < 300);
-                cam->temp_alert = (cam->temp > 55 || cam->temp < 25);
-
-                d->status = (cam->night_vision || cam->temp_alert);
-
+            case TYPE_SMARTPLUG: {
+                
+                d->state = occ ? ON : OFF;
+                d->mode = 0;
                 break;
             }
 
-
-            case DEV_DOORLOCK: {
-                DoorLockData *lk = d->data;
-
-                lk->locked = 0;
-                for (int j = 0; j < c->count; j++) {
-                    Device *camDev = c->devices[j];
-                    if (camDev->type == DEV_CAMERA && camDev->status == 1) {
-                        lk->locked = 1;
-                        break;
-                    }
-                }
-
+            case TYPE_SECURITY: {
+                
+                int tc = (temp > 55 || temp < 25) ? 1 : 0;
+                int nv = (light < 300) ? 1 : 0;
+                d->state = (tc || nv) ? ON : OFF;
+                d->mode = 0;
                 break;
             }
 
-            case DEV_SMARTPLUG:
+            case TYPE_AC: {
+                d->mode = 0;
+                d->state = (temp > 32) ? ON : OFF;
+                break;
+            }
 
+            case TYPE_GEYSER: {
+                
+                d->state = (temp < 20 && temp > 5) ? ON : OFF;
+                d->mode = 0;
+                break;
+            }
+
+            case TYPE_LIGHT:
+            default:
+                
                 break;
         }
     }

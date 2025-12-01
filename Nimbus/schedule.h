@@ -1,13 +1,16 @@
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
 
-typedef struct Schedule {
-    int start_min;
-    int end_min;
-    struct Schedule *next;
-} Schedule;
+#include "device.h"
 
-Schedule* add_schedule(Schedule *head, int start, int end);
-int in_schedule(Schedule *head, int now_min);
+struct Schedule {
+    int start_hour; 
+    int end_hour;   
+    State desired_state;
+    struct Schedule* next;
+};
+
+void addSchedule(Device* d, int start, int end, State s);
+void applySchedules(int hour);
 
 #endif

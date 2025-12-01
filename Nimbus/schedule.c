@@ -1,20 +1,29 @@
-#include "schedule.h"
 #include <stdlib.h>
+#include "schedule.h"
+#include "device.h"
 
-Schedule* add_schedule(Schedule *head, int start, int end) {
-    Schedule *s = malloc(sizeof(Schedule));
-    s->start_min = start;
-    s->end_min = end;
-    s->next = head;
-    return s;
+static int within(int hour, int start, int end) {
+    if (start <= end) return hour >= start && hour <= end;
+    return hour >= start || hour <= end;
 }
 
-int in_schedule(Schedule *head, int now_min) {
-    Schedule *cur = head;
-    while (cur) {
-        if (now_min >= cur->start_min && now_min < cur->end_min)
-            return 1;
-        cur = cur->next;
+void addSchedule(Device* d, int start, int end, State s) {
+    struct Schedule* p = malloc(sizeof(struct Schedule));
+    p->start_hour = start;
+    p->end_hour = end;
+    p->desired_state = s;
+    p->next = d->schedule_head;
+    d->schedule_head = p;
+}
+
+void applySchedules(int hour) {
+    for (int i = 0; i < device_count; ++i) {
+        struct Schedule* s = devices[i].schedule_head;
+        while (s) {
+            if (within(hour, s->start_hour, s->end_hour)) {
+                devices[i].state = s->desired_state;
+            }
+            s = s->next;
+        }
     }
-    return 0;
 }
