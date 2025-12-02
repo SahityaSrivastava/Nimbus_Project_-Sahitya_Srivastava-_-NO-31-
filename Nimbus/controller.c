@@ -43,7 +43,7 @@ void runDaySimulation() {
     for (int hr = 0; hr < 24; ++hr) {
         printf("\n=== Time: %02d:00 ===\n", hr);
 
-       
+        
         int temp = dayTemp[hr];
         int light = dayLight[hr];
         int occ = dayOcc[hr];

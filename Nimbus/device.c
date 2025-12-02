@@ -55,7 +55,7 @@ void updateEnergyHour(int hour) {
                 else if (d->mode == 3) add = 0.50f;
                 else add = d->power_rating; 
             } else if (d->type == TYPE_HEATER) {
-               
+                
                 if (d->mode == 1) add = 0.40f;
                 else if (d->mode == 2) add = 0.75f;
                 else add = d->power_rating;
